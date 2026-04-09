@@ -7,16 +7,23 @@ require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
+
+// Allow CORS origins from environment or default to development
+const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
+    ? [process.env.CLIENT_URL || 'https://canteen-frontend.onrender.com']
+    : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5000'];
+
 const io = new Server(server, {
     cors: {
-        origin: "*", // Allow all origins for dev
-        methods: ["GET", "POST"]
+        origin: ALLOWED_ORIGINS,
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: ALLOWED_ORIGINS,
     credentials: true
 }));
 app.use(express.json());

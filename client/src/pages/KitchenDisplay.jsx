@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import { io } from 'socket.io-client';
 import { Clock, ChefHat, CheckCircle, Flame, GripVertical } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';

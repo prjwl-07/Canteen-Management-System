@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import { io } from 'socket.io-client';
 import { ArrowLeft, Loader, AlertCircle, CheckCircle, ChefHat, Clock, Star, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import { io } from 'socket.io-client';
 import { Link, useNavigate } from 'react-router-dom';
 import { Loader, CheckCircle, Clock, ChefHat, LayoutDashboard, UtensilsCrossed, BarChart3, LogOut, MonitorPlay } from 'lucide-react';

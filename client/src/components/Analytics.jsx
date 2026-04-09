@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement, Filler } from 'chart.js';
 import { TrendingUp, Calendar, Clock, DollarSign, Download, PieChart, Activity } from 'lucide-react';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import jsPDF from 'jspdf';
 import { motion } from 'framer-motion';
 

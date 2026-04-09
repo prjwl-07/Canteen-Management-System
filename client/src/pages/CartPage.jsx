@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag, CreditCard, Wallet } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
