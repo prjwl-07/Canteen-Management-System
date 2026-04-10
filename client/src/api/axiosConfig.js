@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-// Get API URL from environment or use current origin as fallback
-const API_URL = import.meta.env.VITE_API_URL || window.location.origin;
+// Get API URL from environment
+// Development: VITE_API_URL is empty, so axios will use relative paths and Vite proxy handles it
+// Production: VITE_API_URL is the full backend URL
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Create axios instance with baseURL
 const axiosInstance = axios.create({
-    baseURL: API_URL,
+    baseURL: API_URL || undefined, // Use Vite proxy in development (empty string -> undefined)
     withCredentials: true, // Include cookies if needed
 });
 
