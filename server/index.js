@@ -48,9 +48,15 @@ app.use('/uploads', express.static('uploads'));
 
 // Database Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/canteen-db';
+console.log('Connecting to MongoDB...');
+console.log('Environment:', process.env.NODE_ENV);
+console.log('Client URL:', process.env.CLIENT_URL);
 mongoose.connect(MONGODB_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .then(() => console.log('✅ MongoDB connected successfully'))
+    .catch(err => {
+        console.error('❌ MongoDB connection error:', err.message);
+        process.exit(1);
+    });
 
 // Routes
 const menuRoutes = require('./routes/menuRoutes');

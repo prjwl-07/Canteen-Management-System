@@ -43,7 +43,11 @@ router.get('/', async (req, res) => {
         // For now, client will just use the relative path '/uploads/...'
         res.json(items);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error('Menu GET error:', err);
+        res.status(500).json({ 
+            message: err.message,
+            error: process.env.NODE_ENV === 'development' ? err.stack : 'Database error'
+        });
     }
 });
 
@@ -78,21 +82,26 @@ router.get('/recommendations', async (req, res) => {
         // 3. Frequent Items by User: If userId is provided
         let frequentItems = [];
         if (userId && userId !== 'undefined' && userId !== 'null') {
-            const frequentAgg = await Order.aggregate([
-                { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-                { $unwind: "$items" },
-                { $group: { _id: "$items.menuItemId", totalQuantity: { $sum: "$items.quantity" } } },
-                { $sort: { totalQuantity: -1 } },
-                { $limit: 10 }
-            ]);
+            try {
+                const frequentAgg = await Order.aggregate([
+                    { $match: { userId: new mongoose.Types.ObjectId(userId) } },
+                    { $unwind: "$items" },
+                    { $group: { _id: "$items.menuItemId", totalQuantity: { $sum: "$items.quantity" } } },
+                    { $sort: { totalQuantity: -1 } },
+                    { $limit: 10 }
+                ]);
 
-            const frequentItemIds = frequentAgg.filter(f => f._id).map(f => f._id);
-            const frequentItemsData = await Menu.find({ _id: { $in: frequentItemIds }, isAvailable: true });
-            
-            frequentItems = frequentItemIds
-                .map(id => frequentItemsData.find(m => m._id.toString() === id.toString()))
-                .filter(Boolean)
-                .slice(0, 5);
+                const frequentItemIds = frequentAgg.filter(f => f._id).map(f => f._id);
+                const frequentItemsData = await Menu.find({ _id: { $in: frequentItemIds }, isAvailable: true });
+                
+                frequentItems = frequentItemIds
+                    .map(id => frequentItemsData.find(m => m._id.toString() === id.toString()))
+                    .filter(Boolean)
+                    .slice(0, 5);
+            } catch (userErr) {
+                console.error("Error fetching frequent items for user:", userId, userErr);
+                // Continue without frequent items if there's an issue
+            }
         }
 
         res.json({
@@ -102,7 +111,10 @@ router.get('/recommendations', async (req, res) => {
         });
     } catch (err) {
         console.error("Error fetching recommendations:", err);
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ 
+            message: err.message,
+            error: process.env.NODE_ENV === 'development' ? err.stack : 'Database error'
+        });
     }
 });
 
