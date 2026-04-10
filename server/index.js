@@ -8,22 +8,34 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
-// Allow CORS origins from environment or default to development
-// const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
-//     ? [process.env.CLIENT_URL || 'https://canteen-frontend.onrender.com']
-//     : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5000'];
-const ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://canteen-management-system-nu.vercel.app"
-];
+// Allow CORS origins from environment variable
+const getAllowedOrigins = () => {
+    const clientUrl = process.env.CLIENT_URL;
+    if (process.env.NODE_ENV === 'production' && clientUrl) {
+        return [clientUrl];
+    }
+    // Development: allow multiple local ports
+    return [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'http://localhost:5000',
+        'http://127.0.0.1:5173',
+        'http://127.0.0.1:3000'
+    ];
+};
+
+const ALLOWED_ORIGINS = getAllowedOrigins();
+
+// Socket.IO with dynamic CORS configuration
+const socketCorsConfig = {
+    origin: ALLOWED_ORIGINS,
+    methods: ["GET", "POST"],
+    credentials: true,
+    transports: ['websocket', 'polling']
+};
 
 const io = new Server(server, {
-    cors: {
-        origin: ALLOWED_ORIGINS,
-        methods: ["GET", "POST"],
-        credentials: true
-    }
+    cors: socketCorsConfig
 });
 
 // Middleware
