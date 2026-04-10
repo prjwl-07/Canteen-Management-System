@@ -9,9 +9,14 @@ const app = express();
 const server = http.createServer(app);
 
 // Allow CORS origins from environment or default to development
-const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
-    ? [process.env.CLIENT_URL || 'https://canteen-frontend.onrender.com']
-    : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5000'];
+// const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
+//     ? [process.env.CLIENT_URL || 'https://canteen-frontend.onrender.com']
+//     : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5000'];
+const ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://canteen-management-system-nu.vercel.app"
+];
 
 const io = new Server(server, {
     cors: {
