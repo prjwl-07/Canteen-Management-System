@@ -225,7 +225,7 @@ This project is licensed under the MIT License.
 
 **Prajwal Sul**
 
-* GitHub: https://github.com/your-username
+* GitHub: https://github.com/prjwl-07
 
 ---
 
