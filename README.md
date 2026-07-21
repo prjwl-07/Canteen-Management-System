@@ -21,7 +21,7 @@ A full-stack MERN application designed to manage canteen operations efficiently 
 ### Frontend
 
 * React.js
-* CSS / Tailwind (if used)
+* CSS / Tailwind
 
 ### Backend
 
@@ -72,69 +72,6 @@ cd canteen-crowd-management-system
 
 ---
 
-### 2️⃣ Install Dependencies
-
-#### Backend
-
-```bash
-cd server
-npm install
-```
-
-#### Frontend
-
-```bash
-cd client
-npm install
-```
-
----
-
-### 3️⃣ Environment Variables
-
-Create a `.env` file inside `/server`:
-
-```env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-```
-
-⚠️ Important:
-
-* Do NOT push `.env` to GitHub
-* Add `.env` to `.gitignore`
-
----
-
-### 4️⃣ Run the Application
-
-#### Start Backend
-
-```bash
-cd server
-npm run dev
-```
-
-#### Start Frontend
-
-```bash
-cd client
-npm start
-```
-
----
-
-## 🌱 Seed Database (Dummy Data)
-
-To insert sample users, menu items, and orders:
-
-```bash
-node seed.js
-```
-
----
-
 ## 🔐 User Roles
 
 | Role    | Permissions                      |
@@ -169,57 +106,18 @@ node seed.js
 
 ### Backend (Render)
 
-* Build Command: `npm install`
-* Start Command: `node server/index.js`
-
-### Frontend
-
-* Can be deployed on:
-
-  * Vercel
-  * Netlify
-
----
-
-## ⚠️ Common Issues
-
-### ❌ MongoDB Connection Error
-
-* Ensure URI is in **single line**
-* Do NOT include port with `mongodb+srv`
-
-### ❌ Deployment Fails
-
-* Add environment variables in Render dashboard
-* Ensure correct start command
+### Frontend (Vercel)
 
 ---
 
 ## 📸 Future Improvements
 
-* 🔔 Real-time order tracking (WebSockets)
 * 📱 Mobile app version
 * 💳 Online payment integration
 * 📈 Analytics dashboard
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repo
-2. Create a new branch
-3. Make changes
-4. Submit a PR
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
 
 ## 👨‍💻 Author
 
